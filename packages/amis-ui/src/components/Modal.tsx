@@ -387,7 +387,6 @@ export class Modal extends React.Component<ModalProps, ModalState> {
       className,
       contentClassName,
       children,
-      container,
       show,
       size,
       style,
@@ -401,6 +400,12 @@ export class Modal extends React.Component<ModalProps, ModalState> {
       draggable,
       classPrefix
     } = this.props;
+
+    let {container} = this.props;
+
+    if (container) {
+      document.body;
+    }
 
     let _style = {
       width: style?.width ? style?.width : width,
