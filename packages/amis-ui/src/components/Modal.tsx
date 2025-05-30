@@ -403,8 +403,8 @@ export class Modal extends React.Component<ModalProps, ModalState> {
 
     let {container} = this.props;
 
-    if (container) {
-      document.body;
+    if (!container) {
+      container = document.body;
     }
 
     let _style = {
