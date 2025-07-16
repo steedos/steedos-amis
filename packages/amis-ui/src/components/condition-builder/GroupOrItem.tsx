@@ -142,6 +142,7 @@ export class CBGroupOrItem extends React.Component<CBGroupOrItemProps> {
                 config={config}
                 fields={fields}
                 formula={formula}
+                popOverContainer={popOverContainer}
                 value={value as ConditionGroupValue}
                 onChange={this.handleItemChange}
                 fieldClassName={fieldClassName}
