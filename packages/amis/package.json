@@ -1,6 +1,6 @@
 {
-  "name": "@steedos-widgets/amis",
-  "version": "6.3.0-patch.8",
+  "name": "amis",
+  "version": "6.2.1",
   "description": "一种MIS页面生成工具",
   "main": "lib/index.js",
   "module": "esm/index.js",
