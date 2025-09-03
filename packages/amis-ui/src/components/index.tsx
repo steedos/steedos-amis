@@ -132,6 +132,8 @@ import {CodeMirrorEditor} from './CodeMirror';
 import type CodeMirror from 'codemirror';
 import OverflowTpl from './OverflowTpl';
 import Signature from './Signature';
+import {HorizontalScroll} from './HorizontalScroll';
+import type {HorizontalScrollProps} from './HorizontalScroll';
 
 export {
   NotFound,
@@ -267,5 +269,7 @@ export {
   CodeMirror,
   CodeMirrorEditor,
   OverflowTpl,
-  Signature
+  Signature,
+  HorizontalScroll,
+  HorizontalScrollProps
 };
