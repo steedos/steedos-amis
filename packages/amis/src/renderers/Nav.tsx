@@ -891,10 +891,7 @@ export class Navigation extends React.Component<
         classNameId = cx(`Nav-PopupClassName-${id}`);
         if (!document.getElementById(classNameId)) {
           // rc-menu的浮层只支持配置popupClassName 因此需要将配置的style插入到页面 然后将className赋值给浮层
-          insertStyle({
-            style: `.${classNameId} ${styleText}`,
-            classId: classNameId
-          });
+          insertStyle(`.${classNameId} ${styleText}`, classNameId);
         }
       } catch (e) {}
     }
@@ -1059,31 +1056,29 @@ const ConditionBuilderWithRemoteOptions = withRemoteConfig({
         if (!!link.disabled) {
           return false;
         }
-
-        return motivation &&
-          !['location-change', 'data-change'].includes(motivation) &&
-          typeof link.active !== 'undefined'
-          ? link.active
-          : (depth === level
-              ? !!findTree(
-                  link.children || [],
-                  l =>
-                    !!(
-                      l.hasOwnProperty('to') &&
-                      env &&
-                      env.isCurrentUrl(filter(l.to as string, data), link)
-                    )
-                )
-              : false) ||
-              (link.activeOn
-                ? evalExpression(link.activeOn as string, data) ||
-                  evalExpression(link.activeOn as string, location)
-                : !!(
-                    link.hasOwnProperty('to') &&
-                    link.to !== null && // 也可能出现{to: null}的情况（独立应用）filter会把null处理成'' 那默认首页会选中很多菜单项 {to: ''}认为是有效配置
+        return (
+          motivation !== 'location-change' &&
+          ((depth === level
+            ? !!findTree(
+                link.children || [],
+                l =>
+                  !!(
+                    l.hasOwnProperty('to') &&
                     env &&
-                    env.isCurrentUrl(filter(link.to as string, data), link)
-                  ));
+                    env.isCurrentUrl(filter(l.to as string, data), link)
+                  )
+              )
+            : false) ||
+            (link.activeOn
+              ? evalExpression(link.activeOn as string, data) ||
+                evalExpression(link.activeOn as string, location)
+              : !!(
+                  link.hasOwnProperty('to') &&
+                  link.to !== null && // 也可能出现{to: null}的情况（独立应用）filter会把null处理成'' 那默认首页会选中很多菜单项 {to: ''}认为是有效配置
+                  env &&
+                  env.isCurrentUrl(filter(link.to as string, data), link)
+                )))
+        );
       };
 
       links = mapTree(
@@ -1520,9 +1515,7 @@ export class NavigationRenderer extends React.Component<RendererProps> {
 
   doAction(
     action: ActionObject,
-    data: object,
-    throwErrors?: boolean,
-    args?: {
+    args: {
       value?: string | {[key: string]: string};
     }
   ) {
