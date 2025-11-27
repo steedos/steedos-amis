@@ -220,8 +220,14 @@ export class SchemaRenderer extends React.Component<SchemaRendererProps, any> {
 
   @autobind
   childRef(ref: any) {
-    while (ref && ref.getWrappedInstance) {
-      ref = ref.getWrappedInstance();
+    while (ref?.getWrappedInstance) {
+      const wrappedInstance = ref.getWrappedInstance();
+
+      if (wrappedInstance) {
+        ref = wrappedInstance;
+      } else {
+        break;
+      }
     }
 
     this.cRef = ref;
